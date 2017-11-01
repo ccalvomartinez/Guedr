@@ -2,4 +2,6 @@
     <string name="app_name">Guedr</string>
     <string name="greeting">Hola caracola</string>
     <string name="offline_weather">Offline weather</string>
+    <string name="stone_button">Sistema piedra</string>
+    <string name="Donkey_button">Sistema burro</string>
 </resources>
