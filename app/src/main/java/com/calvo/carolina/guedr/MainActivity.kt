@@ -10,20 +10,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val TAG = MainActivity::class.java.canonicalName!!
 
-    private var stoneButton: Button? = null
-    private var donkeyButton: Button? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.v(TAG, "After of onCreate")
 
-        stoneButton = findViewById(R.id.stone_button)
-        donkeyButton = findViewById(R.id.donkey_button)
-
-        stoneButton?.setOnClickListener(this)
-
-        donkeyButton?.setOnClickListener(this)
+        findViewById<Button>(R.id.stone_button).setOnClickListener(this)
+        findViewById<Button>(R.id.donkey_button).setOnClickListener(this)
 
         if (savedInstanceState != null)
             Log.v(TAG, "Tha value of key is: ${savedInstanceState["key"]}")
@@ -37,13 +30,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         Log.v(TAG, "onClickListener")
-        if (v == stoneButton) {
+       /* if (v?.id == R.id.stone_button) {
             Log.v(TAG, "Han pulsado botón piedra")
         }
 
-        if (v == donkeyButton)
+        if (v?.id == R.id.donkey_button)
         {
             Log.v(TAG, "Han pulsado botón burro")
-        }
+        }*/
+
+        Log.v(TAG, when (v?.id) {
+            R.id.stone_button -> "Han pulsado el botón piedra"
+            R.id.donkey_button -> "Ham pulsado el botón burro"
+            else -> "Han pulsado otro botón"
+        })
     }
 }
