@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val TAG = MainActivity::class.java.canonicalName!!
+    private  var offlineWeatherImage: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<Button>(R.id.stone_button).setOnClickListener(this)
         findViewById<Button>(R.id.donkey_button).setOnClickListener(this)
 
+        offlineWeatherImage = findViewById(R.id.ImageWeatherImage)
         if (savedInstanceState != null)
             Log.v(TAG, "Tha value of key is: ${savedInstanceState["key"]}")
     }
@@ -44,5 +47,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.donkey_button -> "Ham pulsado el botón burro"
             else -> "Han pulsado otro botón"
         })
+
+        when (v?.id)
+        {
+            R.id.stone_button -> offlineWeatherImage?.setImageResource(R.drawable.offline_weather)
+            R.id.donkey_button -> offlineWeatherImage?.setImageResource((R.drawable.offline_weather2))
+        }
     }
 }
