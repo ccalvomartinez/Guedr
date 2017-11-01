@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Guedr</string>
-    <string name="greeting">Hola caracola</string>
     <string name="offline_weather">Offline weather</string>
-    <string name="stone_button">Sistema piedra</string>
-    <string name="Donkey_button">Sistema burro</string>
+    <string name="forecastImageContentDescriptor">Soleado con nubes</string>
+    <string name="maxTempFormat">Temp. máxima %.0f º</string>
+    <string name="minTempFormat">Temp. mínims %.0f º</string>
+    <string name="humidityFormat">Humedad %.0f %%</string>
 </resources>
