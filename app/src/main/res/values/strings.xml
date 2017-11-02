@@ -2,11 +2,12 @@
     <string name="app_name">Guedr</string>
     <string name="offline_weather">Offline weather</string>
     <string name="forecastImageContentDescriptor">Soleado con nubes</string>
-    <string name="maxTempFormat">Temp. máxima %.0f º</string>
-    <string name="minTempFormat">Temp. mínims %.0f º</string>
+    <string name="maxTempFormat">Temp. máxima %.0f %s</string>
+    <string name="minTempFormat">Temp. mínims %.0f %s</string>
     <string name="humidityFormat">Humedad %.0f %%</string>
     <string name="chooseUnit">Elige la unidad de temperatura</string>
     <string name="choose_units">Elige la unidad de temperatura</string>
     <string name="unit_celsius">Celsius</string>
     <string name="unit_farenheit">Fahrenheit</string>
+    <string name="settings">Ajuses</string>
 </resources>

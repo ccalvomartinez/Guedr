@@ -8,4 +8,8 @@ data class Forecast(
         val icon: Int
 )
 {
+    enum class TempUnits {
+        CELSIUS,
+        FAHRENHEIT
+    }
 }
