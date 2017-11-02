@@ -5,4 +5,8 @@
     <string name="maxTempFormat">Temp. máxima %.0f º</string>
     <string name="minTempFormat">Temp. mínims %.0f º</string>
     <string name="humidityFormat">Humedad %.0f %%</string>
+    <string name="chooseUnit">Elige la unidad de temperatura</string>
+    <string name="choose_units">Elige la unidad de temperatura</string>
+    <string name="unit_celsius">Celsius</string>
+    <string name="unit_farenheit">Fahrenheit</string>
 </resources>

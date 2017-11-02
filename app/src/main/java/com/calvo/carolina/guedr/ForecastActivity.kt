@@ -11,14 +11,16 @@ class ForecastActivity : AppCompatActivity() {
     private  var forecast: Forecast? = null
         set(value)
         {
-            val forecastImage = findViewById<ImageView>(R.id.forecastImage)
-            val maxTemp = findViewById<TextView>(R.id.maxTemp)
-            val minTemp = findViewById<TextView>(R.id.minTemp)
-            val humidity = findViewById<TextView>(R.id.humidity)
-            val description = findViewById<TextView>(R.id.forecastDescription)
+
 
             if (value != null)
             {
+                val forecastImage = findViewById<ImageView>(R.id.forecastImage)
+                val maxTemp = findViewById<TextView>(R.id.maxTemp)
+                val minTemp = findViewById<TextView>(R.id.minTemp)
+                val humidity = findViewById<TextView>(R.id.humidity)
+                val description = findViewById<TextView>(R.id.forecastDescription)
+
                 forecastImage.setImageResource(value.icon)
                 description.text = value.description
                 maxTemp.text = getString(R.string.maxTempFormat, value.maxTemp)
