@@ -1,4 +1,4 @@
-package com.calvo.carolina.guedr
+package com.calvo.carolina.guedr.model
 
 data class Forecast(
         val maxTemp: Float,

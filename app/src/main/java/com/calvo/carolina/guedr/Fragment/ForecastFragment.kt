@@ -1,4 +1,4 @@
-package com.calvo.carolina.guedr
+package com.calvo.carolina.guedr.Fragment
 
 import android.app.Fragment
 import android.content.Intent
@@ -10,6 +10,10 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import com.calvo.carolina.guedr.PREFERENCE_SHOW_CELSIUS
+import com.calvo.carolina.guedr.R
+import com.calvo.carolina.guedr.activity.SettingsActivity
+import com.calvo.carolina.guedr.model.Forecast
 
 class ForecastFragment: Fragment()
 {
@@ -124,7 +128,8 @@ class ForecastFragment: Fragment()
 
     private fun temperatureUnitsString(units: Forecast.TempUnits): String = if (units == Forecast.TempUnits.CELSIUS) "ºC" else "ºF"
 
-    private fun temperatureUnits(): Forecast.TempUnits {
+    private fun temperatureUnits(): Forecast.TempUnits
+    {
         return when (PreferenceManager.getDefaultSharedPreferences(activity)
                 .getBoolean(PREFERENCE_SHOW_CELSIUS, true))
         {
