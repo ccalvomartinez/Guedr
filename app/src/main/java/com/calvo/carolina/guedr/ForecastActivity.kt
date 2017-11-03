@@ -59,8 +59,12 @@ class ForecastActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menu_show_settings)
         {
-            //startActivity(intent)
-            startActivityForResult(SettingsActivity.intent(this), REQUEST_SETTINGS)
+            val units = if (temperatureUnits() == Forecast.TempUnits.CELSIUS)
+                            R.id.celsius_rb
+                        else
+                            R.id.farenheit_rb
+
+            startActivityForResult(SettingsActivity.intent(this, units), REQUEST_SETTINGS)
 
             return true
         }
@@ -88,8 +92,8 @@ class ForecastActivity : AppCompatActivity() {
     private fun updateTemperature(forecast: Forecast) {
         val units = temperatureUnits()
         val unitsStrings = temperatureUnitsString(units)
-        maxTemp?.text = getString(R.string.maxTempFormat, forecast.maxTemp, unitsStrings)
-        minTemp?.text = getString(R.string.minTempFormat, forecast.minTemp, unitsStrings)
+        maxTemp?.text = getString(R.string.maxTempFormat, forecast.getMaxTemp(units), unitsStrings)
+        minTemp?.text = getString(R.string.minTempFormat, forecast.getMinTemp(units), unitsStrings)
     }
 
     private fun temperatureUnitsString(units: Forecast.TempUnits): String = if (units == Forecast.TempUnits.CELSIUS) "ºC" else "ºF"
