@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -36,7 +38,7 @@ class ForecastActivity : AppCompatActivity() {
                 val description = findViewById<TextView>(R.id.forecastDescription)
                 forecastImage.setImageResource(value.icon)
                 description.text = value.description
-                updateTemperature(value)
+                updateTemperature()
                 humidity.text = getString(R.string.humidityFormat, value.humidity)
             }
         }
@@ -79,27 +81,42 @@ class ForecastActivity : AppCompatActivity() {
             Log.v(TAG, "Han pulsado OK")
             val unitsSelected = data?.getIntExtra(SettingsActivity.EXTRA_UNITS, R.id.celsius_rb)
 
-            when(unitsSelected)
-            {
-                R.id.celsius_rb -> Toast.makeText(this, "Celsius seleccionado", Toast.LENGTH_LONG).show()
-                R.id.farenheit_rb -> Toast.makeText(this, "Fahrenheit seleccionado", Toast.LENGTH_LONG).show()
-            }
+            //when(unitsSelected)
+            //{
+                //R.id.celsius_rb -> Toast.makeText(this, "Celsius seleccionado", Toast.LENGTH_LONG).show()
+                //R.id.farenheit_rb -> Toast.makeText(this, "Fahrenheit seleccionado", Toast.LENGTH_LONG).show()
+            //}
+
+            val oldUnits = temperatureUnits()
+            Snackbar.make(findViewById<View>(android.R.id.content), "Has cambiado las preferencias", Snackbar.LENGTH_LONG)
+                    .setAction("Deshacer")
+                    {
+                        PreferenceManager.getDefaultSharedPreferences(this)
+                                .edit()
+                                .putBoolean(PREFERENCE_SHOW_CELSIUS, oldUnits == Forecast.TempUnits.CELSIUS)
+                                .apply()
+                        updateTemperature()
+                    }
+                    .show()
+
             PreferenceManager.getDefaultSharedPreferences(this)
                     .edit()
                     .putBoolean(PREFERENCE_SHOW_CELSIUS, unitsSelected == R.id.celsius_rb)
                     .apply()
-            if (forecast != null)
-            {
-                updateTemperature(forecast!!)
-            }
+            updateTemperature()
         }
     }
 
-    private fun updateTemperature(forecast: Forecast) {
+    private fun updateTemperature() {
+
         val units = temperatureUnits()
         val unitsStrings = temperatureUnitsString(units)
-        maxTempView.text = getString(R.string.maxTempFormat, forecast.getMaxTemp(units), unitsStrings)
-        minTempView.text = getString(R.string.minTempFormat, forecast.getMinTemp(units), unitsStrings)
+        if (forecast != null)
+        {
+            maxTempView.text = getString(R.string.maxTempFormat, forecast!!.getMaxTemp(units), unitsStrings)
+            minTempView.text = getString(R.string.minTempFormat, forecast!!.getMinTemp(units), unitsStrings)
+        }
+
     }
 
     private fun temperatureUnitsString(units: Forecast.TempUnits): String = if (units == Forecast.TempUnits.CELSIUS) "ºC" else "ºF"

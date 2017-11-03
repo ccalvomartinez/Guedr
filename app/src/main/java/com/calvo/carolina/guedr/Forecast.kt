@@ -13,8 +13,14 @@ data class Forecast(
         FAHRENHEIT
     }
 
-    protected fun toFahrenheit(celsius: Float) = celsius * 1.8f + 31
+    protected fun toFahrenheit(celsius: Float) = celsius * 1.8f + 32
 
+    init {
+        if (humidity !in 0f..100f)
+        {
+            throw IllegalArgumentException("Out of range")
+        }
+    }
     fun getMaxTemp(units: TempUnits) : Float
     {
         return when(units)
