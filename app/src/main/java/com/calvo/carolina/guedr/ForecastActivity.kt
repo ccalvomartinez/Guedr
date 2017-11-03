@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 class ForecastActivity : AppCompatActivity() {
 
@@ -18,8 +19,8 @@ class ForecastActivity : AppCompatActivity() {
     }
     private val TAG = ForecastActivity::class.java.canonicalName!!
 
-    private var maxTemp: TextView? = null
-    private  var minTemp: TextView? = null
+    private lateinit var maxTempView: TextView
+    private lateinit  var minTempView: TextView
 
     private  var forecast: Forecast? = null
         set(value)
@@ -29,11 +30,10 @@ class ForecastActivity : AppCompatActivity() {
             if (value != null)
             {
                 val forecastImage = findViewById<ImageView>(R.id.forecastImage)
-                maxTemp = findViewById<TextView>(R.id.maxTemp)
-                minTemp = findViewById<TextView>(R.id.minTemp)
+                maxTempView = findViewById<TextView>(R.id.maxTemp)
+                minTempView = findViewById<TextView>(R.id.minTemp)
                 val humidity = findViewById<TextView>(R.id.humidity)
                 val description = findViewById<TextView>(R.id.forecastDescription)
-
                 forecastImage.setImageResource(value.icon)
                 description.text = value.description
                 updateTemperature(value)
@@ -78,6 +78,12 @@ class ForecastActivity : AppCompatActivity() {
 
             Log.v(TAG, "Han pulsado OK")
             val unitsSelected = data?.getIntExtra(SettingsActivity.EXTRA_UNITS, R.id.celsius_rb)
+
+            when(unitsSelected)
+            {
+                R.id.celsius_rb -> Toast.makeText(this, "Celsius seleccionado", Toast.LENGTH_LONG).show()
+                R.id.farenheit_rb -> Toast.makeText(this, "Fahrenheit seleccionado", Toast.LENGTH_LONG).show()
+            }
             PreferenceManager.getDefaultSharedPreferences(this)
                     .edit()
                     .putBoolean(PREFERENCE_SHOW_CELSIUS, unitsSelected == R.id.celsius_rb)
@@ -92,8 +98,8 @@ class ForecastActivity : AppCompatActivity() {
     private fun updateTemperature(forecast: Forecast) {
         val units = temperatureUnits()
         val unitsStrings = temperatureUnitsString(units)
-        maxTemp?.text = getString(R.string.maxTempFormat, forecast.getMaxTemp(units), unitsStrings)
-        minTemp?.text = getString(R.string.minTempFormat, forecast.getMinTemp(units), unitsStrings)
+        maxTempView.text = getString(R.string.maxTempFormat, forecast.getMaxTemp(units), unitsStrings)
+        minTempView.text = getString(R.string.minTempFormat, forecast.getMinTemp(units), unitsStrings)
     }
 
     private fun temperatureUnitsString(units: Forecast.TempUnits): String = if (units == Forecast.TempUnits.CELSIUS) "ºC" else "ºF"

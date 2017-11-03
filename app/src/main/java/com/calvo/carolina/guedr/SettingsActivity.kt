@@ -20,7 +20,7 @@ class SettingsActivity: AppCompatActivity() {
             return intent
         }
     }
-    var radioGrop: RadioGroup? = null
+    val radioGrop by lazy { findViewById<RadioGroup>(R.id.units_rg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,6 @@ class SettingsActivity: AppCompatActivity() {
         findViewById<View>(R.id.ok_button).setOnClickListener { acceptSettings() }
         findViewById<View>(R.id.cancel_button).setOnClickListener { cancelSettings() }
 
-        radioGrop = findViewById(R.id.units_rg)
         val radioSelected = intent.getIntExtra(EXTRA_UNITS, R.id.celsius_rb)
         radioGrop?.check(radioSelected)
     }
