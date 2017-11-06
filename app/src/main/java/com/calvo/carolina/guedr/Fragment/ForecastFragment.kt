@@ -13,19 +13,38 @@ import android.widget.TextView
 import com.calvo.carolina.guedr.PREFERENCE_SHOW_CELSIUS
 import com.calvo.carolina.guedr.R
 import com.calvo.carolina.guedr.activity.SettingsActivity
+import com.calvo.carolina.guedr.model.City
 import com.calvo.carolina.guedr.model.Forecast
 
 class ForecastFragment: Fragment()
 {
     companion object {
         val REQUEST_SETTINGS = 1
+        private val ARG_CITY = "CITY"
+
+        fun newInstance(city: City): ForecastFragment
+        {
+            val fragment = ForecastFragment()
+            val arguments = Bundle()
+            arguments.putSerializable(ARG_CITY, city)
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     private val TAG = ForecastFragment::class.java.canonicalName!!
     private  lateinit var root: View
     private lateinit var maxTempView: TextView
     private lateinit  var minTempView: TextView
-
+    private var city: City? = null
+        set(value)
+        {
+            if (value != null)
+            {
+                root.findViewById<TextView>(R.id.cityText).text = value.name
+                forecast = value.forecast
+            }
+        }
     private  var forecast: Forecast? = null
         set(value)
         {
@@ -49,7 +68,8 @@ class ForecastFragment: Fragment()
         super.onCreateView(inflater, container, savedInstanceState)
         inflater?.let {
             root = it.inflate(R.layout.fragment_forecast, container, false)
-            forecast = Forecast(25f, 10f, 30f, "Soleado con intervalos nubosos", R.drawable.ico_01)
+
+            city = arguments?.getSerializable(ARG_CITY) as? City
         }
         return root
     }
@@ -58,6 +78,16 @@ class ForecastFragment: Fragment()
     {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    // Como el View Will Appear de los framents
+    override fun setUserVisibleHint(isVisibleToUser: Boolean)
+    {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && forecast != null)
+        {
+            updateTemperature()
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?)
     {

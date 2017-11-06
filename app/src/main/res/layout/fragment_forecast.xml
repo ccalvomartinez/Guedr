@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+<TextView
+    android:id="@+id/cityText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    tools:text="Madrid"
+    />
     <ImageView
         android:id="@+id/forecastImage"
         android:layout_width="wrap_content"
@@ -14,7 +25,7 @@
         android:layout_marginEnd="@dimen/default_outer_margin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/cityText"
         android:contentDescription="@string/forecastImageContentDescriptor"
         app:srcCompat="@drawable/ico_02" />
 
@@ -22,12 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/forecastImage"
         android:layout_toRightOf="@id/forecastImage"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@id/forecastDescription">
+        android:layout_below="@id/cityText"
+        android:layout_above="@+id/forecastDescription">
+
 
         <TextView
             android:id="@+id/maxTemp"
@@ -62,6 +74,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/forecastImage"
-        android:text="TextView"
         tools:text="Texto de la descripción" />
 </RelativeLayout>

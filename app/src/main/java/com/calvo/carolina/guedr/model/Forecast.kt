@@ -1,12 +1,15 @@
 package com.calvo.carolina.guedr.model
 
-data class Forecast(
+import java.io.Serializable
+
+data class Forecast
+(
         val maxTemp: Float,
         val minTemp: Float,
         val humidity: Float,
         val description: String,
         val icon: Int
-)
+) : Serializable
 {
     enum class TempUnits {
         CELSIUS,
